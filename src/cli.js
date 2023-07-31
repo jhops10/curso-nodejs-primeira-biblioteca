@@ -6,13 +6,26 @@ import openFile from "./index.js";
 const caminho = process.argv;
 
 //Função que mostra lista no console.
-function showList(result) {
-  console.log(chalk.yellow('Lista de Links'), result)
+function showList(result, identificador = "") {
+  console.log(
+    chalk.yellow('Lista de Links'),
+    chalk.black.bgGreen(identificador),
+    result)
 }
 
 //Função que Processa o Texto.
 async function textProcess(argumentos) {
   const caminho = argumentos[2];
+
+  //Tratamento de Erro
+  try {
+    fs.lstatSync(caminho);
+  } catch (erro) {
+    if (erro.code === 'ENOENT') {
+      console.log(chalk.red('Arquivo ou diretório não existe!'));
+      return; //Para interromper o restante do erro, e passar apenas o console.log.
+    }
+  }
 
   if (fs.lstatSync(caminho).isFile()) {
     const result = await openFile(argumentos[2]);
@@ -21,7 +34,7 @@ async function textProcess(argumentos) {
     const files = await fs.promises.readdir(caminho)
     files.forEach( async (fileName) => {
       const list = await openFile(`${caminho}/${fileName}`)
-      showList(list);
+      showList(list, fileName);
     });
     console.log(files);
   }
