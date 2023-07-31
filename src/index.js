@@ -7,7 +7,7 @@ function getLinks(text) {
   const regex = /\[([^[\]]*?)\]\((https?:\/\/[^\s?#.].[^\s]*)\)/gm;
   const matchLinks = [...text.matchAll(regex)];
   const results = matchLinks.map(link => ({ [link[1]]: link[2] }));
-  return results;
+  return results.length !== 0 ? results : 'Nao há links no arquivo.';
 }
 
 
@@ -21,7 +21,7 @@ async function openFile(directory) {
   try {
     const encoding = 'utf-8';
     const response = await fs.promises.readFile(directory, encoding);
-    console.log(getLinks(response));
+    return getLinks(response);
   } catch (erro) {
     handleError(erro);
   }
