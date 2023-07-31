@@ -27,4 +27,4 @@ async function openFile(directory) {
   }
 }
 
-openFile('./arquivos/texto.md');
+export default openFile;
