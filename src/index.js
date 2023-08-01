@@ -27,4 +27,4 @@ async function openFile(directory) {
   }
 }
 
-export default openFile;
+export default openFile

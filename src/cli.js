@@ -53,4 +53,3 @@ async function textProcess(argumentos) {
 textProcess(caminho);
 
 
-// [gatinho salsicha](http://gatinhosalsicha.com.br/)
