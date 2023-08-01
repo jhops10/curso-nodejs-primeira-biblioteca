@@ -7,12 +7,12 @@ import validatedList from './http-validacao.js';
 const caminho = process.argv;
 
 //Função que mostra lista no console.
-function showList(validated, result, identificador = "") {
+async function showList(validated, result, identificador = "") {
   if (validated) {
     console.log(
       chalk.yellow('Lista Validada'),
       chalk.black.bgGreen(identificador),
-      validatedList(result));
+      await validatedList(result));
   } else {
     console.log(
       chalk.yellow('Lista de Links'),
@@ -51,3 +51,6 @@ async function textProcess(argumentos) {
 }
 
 textProcess(caminho);
+
+
+// [gatinho salsicha](http://gatinhosalsicha.com.br/)
